@@ -52,6 +52,25 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Agricultural Theme Colors
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))'
+				},
+				warning: {
+					DEFAULT: 'hsl(var(--warning))',
+					foreground: 'hsl(var(--warning-foreground))'
+				},
+				soil: {
+					healthy: 'hsl(var(--soil-healthy))',
+					poor: 'hsl(var(--soil-poor))'
+				},
+				crop: {
+					green: 'hsl(var(--crop-green))'
+				},
+				water: {
+					blue: 'hsl(var(--water-blue))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
