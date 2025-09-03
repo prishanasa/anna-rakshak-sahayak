@@ -6,18 +6,18 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { MessageCircle, Send, Bot, User } from "lucide-react"
 
 interface Message {
-  id: number
+  id: string
   type: 'user' | 'bot'
   content: string
   timestamp: Date
 }
 
-export function ChatBot() {
+export const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: 1,
+      id: '1',
       type: 'bot',
-      content: 'नमस्ते! मैं आपका कृषि सहायक हूं। आप मुझसे खेती से जुड़ी किसी भी समस्या के बारे में पूछ सकते हैं। आज आपकी कैसे मदद कर सकूं?',
+      content: 'Hello! I am your agricultural assistant. You can ask me about any farming-related problems. How can I help you today?',
       timestamp: new Date()
     }
   ])
@@ -25,51 +25,69 @@ export function ChatBot() {
   const [newMessage, setNewMessage] = useState('')
 
   const quickQuestions = [
-    "इस सप्ताह क्या करना चाहिए?",
-    "मिट्टी की जांच कैसे करें?", 
-    "कीटों से कैसे बचें?",
-    "सिंचाई कब करें?"
+    "What should I do for my crop today?",
+    "When should I irrigate?",
+    "What's tomorrow's weather?",
+    "Pest control measures?"
   ]
 
   const handleSendMessage = () => {
     if (!newMessage.trim()) return
 
     const userMessage: Message = {
-      id: messages.length + 1,
+      id: Date.now().toString(),
       type: 'user',
       content: newMessage,
       timestamp: new Date()
     }
 
     setMessages(prev => [...prev, userMessage])
+    setNewMessage('')
 
-    // Simulate AI response
+    // Simulate bot response
     setTimeout(() => {
-      const botResponse: Message = {
-        id: messages.length + 2,
+      const botMessage: Message = {
+        id: (Date.now() + 1).toString(),
         type: 'bot',
-        content: `आपके प्रश्न "${newMessage}" के लिए: मैं आपकी फसल और मौसम के डेटा के आधार पर सुझाव दे रहा हूं। इस समय आपको मिट्टी की नमी जांचनी चाहिए और यदि आवश्यक हो तो सिंचाई करनी चाहिए। क्या आपको विस्तृत जानकारी चाहिए?`,
+        content: getBotResponse(newMessage),
         timestamp: new Date()
       }
-      setMessages(prev => [...prev, botResponse])
+      setMessages(prev => [...prev, botMessage])
     }, 1000)
+  }
 
-    setNewMessage('')
+  const getBotResponse = (question: string): string => {
+    const responses = [
+      "For your wheat crop, I recommend irrigating tomorrow morning. Weather conditions are expected to be clear.",
+      "Check soil moisture. If it's dry 2 inches down, irrigate. No rain expected for the next 3 days.",
+      "Tomorrow's weather: 25-30°C, clear skies, 15% chance of rain. Good day for field work.",
+      "For aphid control, spray neem oil early morning or evening when sunlight is less intense."
+    ]
+    return responses[Math.floor(Math.random() * responses.length)]
+  }
+
+  const handleQuickQuestion = (question: string) => {
+    setNewMessage(question)
+    handleSendMessage()
   }
 
   return (
     <div className="max-w-4xl mx-auto p-4">
       <Card className="h-[600px] flex flex-col">
-        <div className="flex items-center gap-3 p-4 border-b">
-          <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-            <Bot className="w-5 h-5 text-primary-foreground" />
-          </div>
-          <div>
-            <h3 className="font-semibold">सहायक - AI कृषि विशेषज्ञ</h3>
-            <p className="text-sm text-muted-foreground">24/7 उपलब्ध</p>
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-border">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+              <MessageCircle className="h-5 w-5 text-primary-foreground" />
+            </div>
+            <div>
+              <h2 className="font-semibold text-foreground">AI Agricultural Assistant</h2>
+              <p className="text-sm text-muted-foreground">Online • Instant replies</p>
+            </div>
           </div>
         </div>
 
+        {/* Messages */}
         <ScrollArea className="flex-1 p-4">
           <div className="space-y-4">
             {messages.map((message) => (
@@ -98,7 +116,7 @@ export function ChatBot() {
                     <p className="text-sm">{message.content}</p>
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {message.timestamp.toLocaleTimeString('hi-IN')}
+                    {message.timestamp.toLocaleTimeString()}
                   </p>
                 </div>
               </div>
@@ -107,32 +125,35 @@ export function ChatBot() {
         </ScrollArea>
 
         {/* Quick Questions */}
-        <div className="p-4 border-t">
-          <p className="text-sm text-muted-foreground mb-2">तुरंत पूछें:</p>
-          <div className="grid grid-cols-2 gap-2 mb-4">
+        <div className="p-4 border-t border-border">
+          <p className="text-sm text-muted-foreground mb-3">Quick Questions:</p>
+          <div className="flex flex-wrap gap-2">
             {quickQuestions.map((question, index) => (
               <Button
                 key={index}
                 variant="outline"
                 size="sm"
-                className="text-xs h-8 justify-start"
-                onClick={() => setNewMessage(question)}
+                onClick={() => handleQuickQuestion(question)}
+                className="text-xs"
               >
                 {question}
               </Button>
             ))}
           </div>
+        </div>
 
+        {/* Input */}
+        <div className="p-4 border-t border-border">
           <div className="flex gap-2">
             <Input
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="अपना प्रश्न यहां लिखें..."
+              placeholder="Type your question here..."
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
               className="flex-1"
             />
-            <Button onClick={handleSendMessage} variant="agricultural">
-              <Send className="w-4 h-4" />
+            <Button onClick={handleSendMessage} size="sm" className="px-4">
+              <Send className="h-4 w-4" />
             </Button>
           </div>
         </div>
