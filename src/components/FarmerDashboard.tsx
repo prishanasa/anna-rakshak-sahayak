@@ -70,21 +70,21 @@ export const FarmerDashboard = () => {
           <AlertCard
             type="success"
             title="Crop Health Good"
-            description="Your wheat crop is healthy and growing well."
-            icon={<Leaf className="h-5 w-5" />}
-          />
+          >
+            Your wheat crop is healthy and growing well.
+          </AlertCard>
           <AlertCard
             type="warning"
             title="Irrigation Needed"
-            description="Irrigation recommended within the next 2 days."
-            icon={<Droplets className="h-5 w-5" />}
-          />
+          >
+            Irrigation recommended within the next 2 days.
+          </AlertCard>
           <AlertCard
             type="danger"
             title="Pest Alert"
-            description="Aphid infestation possible in this region. Monitor closely."
-            icon={<Bug className="h-5 w-5" />}
-          />
+          >
+            Aphid infestation possible in this region. Monitor closely.
+          </AlertCard>
         </div>
 
         {/* Charts Section */}
