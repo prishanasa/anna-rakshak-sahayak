@@ -192,6 +192,46 @@ export const FarmerDashboard = () => {
           </Card>
         </div>
 
+        {/* ML Prediction Buttons */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Button 
+            size="lg" 
+            variant="agricultural" 
+            className="h-20 text-lg shadow-lg flex-col"
+            onClick={() => window.location.href = '/pest-prediction'}
+          >
+            <Bug className="h-6 w-6 mb-2" />
+            Pest Prediction
+          </Button>
+          <Button 
+            size="lg" 
+            variant="outline" 
+            className="h-20 text-lg flex-col"
+            onClick={() => window.location.href = '/crop-yield'}
+          >
+            <TrendingUp className="h-6 w-6 mb-2" />
+            Crop Yield Prediction
+          </Button>
+          <Button 
+            size="lg" 
+            variant="secondary" 
+            className="h-20 text-lg flex-col"
+            onClick={() => window.location.href = '/soil-fertility'}
+          >
+            <Leaf className="h-6 w-6 mb-2" />
+            Soil Fertility
+          </Button>
+          <Button 
+            size="lg" 
+            variant="outline" 
+            className="h-20 text-lg flex-col"
+            onClick={() => window.location.href = '/crop-recommendation'}
+          >
+            <Wheat className="h-6 w-6 mb-2" />
+            Crop Recommendation
+          </Button>
+        </div>
+
         {/* Action Buttons */}
         <div className="grid sm:grid-cols-3 gap-4">
           <Button size="lg" variant="agricultural" className="h-16 text-lg shadow-lg">
