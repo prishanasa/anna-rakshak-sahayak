@@ -15,10 +15,26 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <link rel="icon" type="image/png" href="https://imgs.search.brave.com/XyE5mck7JEvrJcXTq-f5Na009HBdmUFVDAkoJnYuEYU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4t/aWNvbnMtcG5nLmZs/YXRpY29uLmNvbS8x/MjgvMTY5NzcvMTY5/NzcyNTcucG5n" />
   </head>
 
   <body>
     <div id="root"></div>
+    
+    <!-- Google Translate Widget -->
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',  // Default site language (change if needed)
+          includedLanguages: 'en,hi,or,ta,te,as,mr,kn,bn,gu,ml',  // Supported languages (add/remove codes)
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE  // Dropdown style
+        }, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
